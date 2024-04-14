@@ -391,7 +391,7 @@ class ApproximateOracle(OracleBuilder, abc.ABC):
 
             # read the validation rank correlation from the zip file
             with zip_archive.open('rank_correlation.npy', "r") as file:
-                rank_correlation = np.loads(file.read())
+                rank_correlation = pkl.loads(file.read())
 
             # read the validation parameters from the zip file
             with zip_archive.open('split_kwargs.pkl', "r") as file:
