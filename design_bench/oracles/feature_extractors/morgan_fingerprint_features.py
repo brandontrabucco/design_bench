@@ -3,10 +3,15 @@ from design_bench.disk_resource import DiskResource
 from design_bench.disk_resource import DATA_DIR
 from design_bench.disk_resource import SERVER_URL
 from deepchem.feat.smiles_tokenizer import SmilesTokenizer
+import transformers
 import deepchem.feat as feat
 import os
 import numpy as np
 
+# To avoid the following warning spam:
+# "Setting 'max_len_single_sentence' is now deprecated. This value is automatically set up."
+# "Setting 'max_len_sentences_pair' is now deprecated. This value is automatically set up."
+transformers.logging.set_verbosity_error()
 
 class MorganFingerprintFeatures(FeatureExtractor):
     """An abstract class for managing transformations applied to model-based

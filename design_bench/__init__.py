@@ -4,8 +4,16 @@ from design_bench.oracles.sklearn.kernels import DefaultSequenceKernel
 from design_bench.oracles.feature_extractors.\
     morgan_fingerprint_features import MorganFingerprintFeatures
 from sklearn.gaussian_process.kernels import ConstantKernel, RBF
+import os
 import numpy as np
+from huggingface_hub import snapshot_download 
 
+DB_HF_DATASET = os.environ.get("DB_HF_REPO", "beckhamc/design_bench_data")
+DB_DATA_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)),
+    "design_bench_data"
+)
+snapshot_download(DB_HF_DATASET, repo_type="dataset", local_dir=DB_DATA_DIR)
 
 register('ToyDiscrete-Exact-v0',
          'design_bench.datasets.discrete.toy_discrete_dataset:ToyDiscreteDataset',
