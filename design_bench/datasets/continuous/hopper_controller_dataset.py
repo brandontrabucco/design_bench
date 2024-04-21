@@ -193,7 +193,7 @@ class HopperControllerDataset(ContinuousDataset):
 
         return [DiskResource(
             file, is_absolute=False,
-            download_target=f"{SERVER_URL}/{file}",
+            download_target=file,
             download_method="direct") for file in HOPPER_CONTROLLER_FILES]
 
     @staticmethod
@@ -213,7 +213,7 @@ class HopperControllerDataset(ContinuousDataset):
 
         return [DiskResource(
             file.replace("-x-", "-y-"), is_absolute=False,
-            download_target=f"{SERVER_URL}/{file.replace('-x-', '-y-')}",
+            download_target=file.replace('-x-', '-y-'),
             download_method="direct") for file in HOPPER_CONTROLLER_FILES]
 
     def __init__(self, **kwargs):

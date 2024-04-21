@@ -186,7 +186,7 @@ class AntMorphologyOracle(ExactOracle):
         policy = "ant_morphology/ant_oracle.pkl"
         policy = DiskResource(
             policy, is_absolute=False, download_method="direct",
-            download_target=f"{SERVER_URL}/{policy}")
+            download_target=policy)
         if not policy.is_downloaded and not policy.download():
             raise ValueError("unable to download trained policy for ant")
 

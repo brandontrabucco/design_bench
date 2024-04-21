@@ -627,7 +627,7 @@ class ChEMBLDataset(DiscreteDataset):
 
         return [DiskResource(
             file, is_absolute=False,
-            download_target=f"{SERVER_URL}/{file}",
+            download_target=file,
             download_method="direct") for file in CHEMBL_FILES
             if f"{standard_type}-{assay_chembl_id}" in file]
 
@@ -660,7 +660,7 @@ class ChEMBLDataset(DiscreteDataset):
 
         return [DiskResource(
             file.replace("-x-", "-y-"), is_absolute=False,
-            download_target=f"{SERVER_URL}/{file.replace('-x-', '-y-')}",
+            download_target=file.replace('-x-', '-y-'),
             download_method="direct") for file in CHEMBL_FILES
             if f"{standard_type}-{assay_chembl_id}" in file]
 

@@ -3,9 +3,12 @@ from design_bench.disk_resource import DiskResource
 from design_bench.disk_resource import DATA_DIR
 from design_bench.disk_resource import SERVER_URL
 from deepchem.feat.smiles_tokenizer import SmilesTokenizer
+import transformers
 import deepchem.feat as feat
 import os
 import numpy as np
+
+transformers.logging.set_verbosity_error()
 
 
 class MorganFingerprintFeatures(FeatureExtractor):
@@ -67,7 +70,8 @@ class MorganFingerprintFeatures(FeatureExtractor):
         vocab_file = DiskResource(
             os.path.join(DATA_DIR, 'smiles_vocab.txt'),
             download_method="direct",
-            download_target=f'{SERVER_URL}/smiles_vocab.txt')
+            download_target="smiles_vocab.txt"
+        )
         if not vocab_file.is_downloaded:
             vocab_file.download()
         self.tokenizer = SmilesTokenizer(
