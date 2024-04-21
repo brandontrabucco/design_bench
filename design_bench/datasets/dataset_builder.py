@@ -460,6 +460,7 @@ class DatasetBuilder(abc.ABC):
             self.map_normalize_x()
         if is_normalized_y:
             self.map_normalize_y()
+            
         self.subsample(max_samples=max_samples,
                        distribution=distribution,
                        min_percentile=min_percentile,

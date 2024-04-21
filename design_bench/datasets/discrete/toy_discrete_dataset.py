@@ -231,7 +231,7 @@ class ToyDiscreteDataset(DiscreteDataset):
 
         return [DiskResource(
             file, is_absolute=False,
-            download_target=f"{SERVER_URL}/{file}",
+            download_target=file,
             download_method="direct") for file in TOY_DISCRETE_FILES]
 
     @staticmethod
@@ -251,7 +251,7 @@ class ToyDiscreteDataset(DiscreteDataset):
 
         return [DiskResource(
             file.replace("-x-", "-y-"), is_absolute=False,
-            download_target=f"{SERVER_URL}/{file.replace('-x-', '-y-')}",
+            download_target=file.replace('-x-', '-y-'),
             download_method="direct") for file in TOY_DISCRETE_FILES]
 
     def __init__(self, soft_interpolation=0.6, **kwargs):

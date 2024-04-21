@@ -332,7 +332,7 @@ class ApproximateOracle(OracleBuilder, abc.ABC):
                             is_absolute=is_absolute,
                             download_method=None if disk_target else "direct",
                             download_target=None if disk_target else
-                            f"{SERVER_URL}/{default}")
+                            default)
 
     def save_params(self, file, params):
         """a function that serializes a machine learning model and stores

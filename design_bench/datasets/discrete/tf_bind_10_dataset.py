@@ -225,7 +225,7 @@ class TFBind10Dataset(DiscreteDataset):
 
         return [DiskResource(
             file, is_absolute=False,
-            download_target=f"{SERVER_URL}/{file}",
+            download_target=file,
             download_method="direct") for file in TF_BIND_10_FILES
             if transcription_factor in file]
 
@@ -253,7 +253,7 @@ class TFBind10Dataset(DiscreteDataset):
 
         return [DiskResource(
             file.replace("-x-", "-y-"), is_absolute=False,
-            download_target=f"{SERVER_URL}/{file.replace('-x-', '-y-')}",
+            download_target=file.replace('-x-', '-y-'),
             download_method="direct") for file in TF_BIND_10_FILES
             if transcription_factor in file]
 

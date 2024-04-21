@@ -4,9 +4,7 @@ import zipfile
 
 import warnings
 
-import requests
-
-SERVER_URL=""
+SERVER_URL = os.environ.get("DB_HF_DATA", "beckhamc/design_bench_data")
 
 # the global path to a folder that stores all data files
 DATA_DIR = os.path.join(
@@ -14,7 +12,6 @@ DATA_DIR = os.path.join(
     os.path.dirname(
     os.path.dirname(os.path.abspath(__file__)))), 'design_bench_data')
 
-DATA_DIR_REMOTE = None
 
 class DiskResource(object):
     """A resource manager that downloads files from remote destinations
@@ -72,8 +69,12 @@ class DiskResource(object):
 
         return os.path.join(DATA_DIR, file_path)
 
-    def __init__(self, disk_target, is_absolute=True,
-                 download_target=None, download_method=None):
+    def __init__(self, 
+                 disk_target, 
+                 is_absolute=True,
+                 download_target=None,
+                 repo_id=None,
+                 download_method=None):
         """A resource manager that downloads files from remote destinations
         and loads these files from the disk, used to manage remote datasets
         for offline model-based optimization problems
@@ -95,9 +96,10 @@ class DiskResource(object):
 
         """
 
-        self.repo_id = "beckhamc/design_bench_data"
-
-        print("get: {}".format(download_target))
+        if repo_id is None:
+            self.repo_id = SERVER_URL
+        else:
+            self.repo_id = repo_id
 
         self.disk_target = os.path.abspath(disk_target) \
             if is_absolute else DiskResource.get_data_path(disk_target)
@@ -124,6 +126,7 @@ class DiskResource(object):
             download_target = self.download_target
 
         try:
+            print("repo_id={}, filename={}".format(self.repo_id,download_target))
             self.disk_target = hf_hub_download(
                 repo_id=self.repo_id,
                 filename=download_target,
@@ -134,7 +137,7 @@ class DiskResource(object):
         except Exception as err:
             warnings.warn(
                 "Unable to download file from {}: {}. Exception: {}".format(
-                    self.repo_id, self.disk_target_relative,
+                    self.repo_id, download_target,
                     str(err)
                 ),
                 UserWarning
